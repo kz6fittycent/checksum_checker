@@ -10,11 +10,35 @@ confinement: strict
 license: MIT
 base: core24
 
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [arm64]
+    build-for: [arm64]
+  armhf:
+    build-on: [armhf]
+    build-for: [armhf]
+  ppc64el:
+    build-on: [ppc64el]
+    build-for: [ppc64el]
+  s390x:
+    build-on: [s390x]
+    build-for: [s390x]
+  riscv64:
+    build-on: [riscv64]
+    build-for: [riscv64]
+    
 apps:
   checksumchecker:
     command: checksum_checker
     extensions:
-      - gnome    
+      - gnome
+    environment:
+       LC_ALL: C.UTF-8
+       LANG: C.UTF-8        
+       PYTHONPATH: $SNAP/usr/lib/python3/site-packages        
     plugs:
       - home
       - removable-media
@@ -24,7 +48,10 @@ parts:
     source: https://github.com/kz6fittycent/checksum_checker
     source-type: git
     plugin: python
-    
+    build-packages:
+      - python3
+      - python3-pyqt6
+      
     stage-packages:
       - python3
       - python3-pyqt6
