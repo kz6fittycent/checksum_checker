@@ -1,3 +1,5 @@
+[![🧪 Snap Builds](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml/badge.svg)](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml)
+
 # Checksum Checker
 
 A simple GUI application to verify and generate checksums for files on Linux.
@@ -31,6 +33,11 @@ A simple GUI application to verify and generate checksums for files on Linux.
 4. To generate a checksum, click "Generate Checksum".
 5. View the result in the output area.
 6. Click "Check Another File" to reset or "Exit" to close.
+
+## Credits
+
+This was an experiment with Grok3 that went quite well. I created the snap, but
+Grok3 created the application itself based on my prompts. 
 
 ## License
 [MIT License]
