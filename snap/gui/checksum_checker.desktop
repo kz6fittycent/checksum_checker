@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Checksum_Checker
+GenericName=Checksum Checker
+Comment=A checksum checker and creator for Linux Desktops
+Exec=checksum_checker
+Icon=${SNAP}/meta/gui/checksum_checker.png
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=Application;
+Keywords=checksum_checker;

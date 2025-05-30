@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+
+import hashlib
+import sys
+import os
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+    QPushButton, QLineEdit, QComboBox, QLabel, QTextEdit, QFileDialog
+)
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QTextCharFormat, QColor
+
+class ChecksumCheckerWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Checksum Checker")
+        self.setMinimumSize(600, 300)
+
+        # Initialize available algorithms
+        self.algorithms = sorted(hashlib.algorithms_available)
+
+        # Create main widget and layout
+        main_widget = QWidget()
+        self.setCentralWidget(main_widget)
+        layout = QVBoxLayout()
+        main_widget.setLayout(layout)
+
+        # File path input
+        file_layout = QHBoxLayout()
+        self.file_input = QLineEdit()
+        self.file_input.setPlaceholderText("Select or enter file path")
+        self.file_button = QPushButton("Browse")
+        self.file_button.clicked.connect(self.browse_file)
+        file_layout.addWidget(QLabel("File Path:"))
+        file_layout.addWidget(self.file_input)
+        file_layout.addWidget(self.file_button)
+        layout.addLayout(file_layout)
+
+        # Algorithm selection
+        algo_layout = QHBoxLayout()
+        self.algo_combo = QComboBox()
+        self.algo_combo.addItems(self.algorithms)
+        algo_layout.addWidget(QLabel("Algorithm:"))
+        algo_layout.addWidget(self.algo_combo)
+        layout.addLayout(algo_layout)
+
+        # Expected checksum input
+        checksum_layout = QHBoxLayout()
+        self.checksum_input = QLineEdit()
+        self.checksum_input.setPlaceholderText("Enter expected checksum (for verification)")
+        checksum_layout.addWidget(QLabel("Expected Checksum:"))
+        checksum_layout.addWidget(self.checksum_input)
+        layout.addLayout(checksum_layout)
+
+        # Action buttons
+        action_layout = QHBoxLayout()
+        self.verify_button = QPushButton("Verify Checksum")
+        self.verify_button.clicked.connect(self.verify_checksum)
+        self.generate_button = QPushButton("Generate Checksum")
+        self.generate_button.clicked.connect(self.generate_checksum)
+        action_layout.addWidget(self.verify_button)
+        action_layout.addWidget(self.generate_button)
+        layout.addLayout(action_layout)
+
+        # Output display
+        self.output_text = QTextEdit()
+        self.output_text.setReadOnly(True)
+        layout.addWidget(self.output_text)
+
+        # Continue/Exit buttons
+        button_layout = QHBoxLayout()
+        self.continue_button = QPushButton("Check Another File")
+        self.continue_button.clicked.connect(self.reset_form)
+        self.exit_button = QPushButton("Exit")
+        self.exit_button.clicked.connect(self.close)
+        button_layout.addWidget(self.continue_button)
+        button_layout.addWidget(self.exit_button)
+        layout.addLayout(button_layout)
+
+    def browse_file(self):
+        """Open file dialog for selecting a file."""
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Select File", "", "All Files (*)"
+        )
+        if file_path:
+            self.file_input.setText(file_path)
+
+    def calculate_checksum(self, file_path, algorithm, block_size=8192):
+        """Calculate checksum of a file using specified algorithm."""
+        try:
+            hash_obj = hashlib.new(algorithm)
+            with open(file_path, 'rb') as file:
+                while True:
+                    data = file.read(block_size)
+                    if not data:
+                        break
+                    hash_obj.update(data)
+            return hash_obj.hexdigest()
+        except FileNotFoundError:
+            return f"Error: File '{file_path}' not found"
+        except ValueError:
+            return f"Error: Invalid algorithm '{algorithm}'"
+        except Exception as e:
+            return f"Error: {str(e)}"
+
+    def verify_checksum(self):
+        """Verify the checksum and display the result with color coding and icons."""
+        file_path = self.file_input.text().strip()
+        algorithm = self.algo_combo.currentText()
+        expected_checksum = self.checksum_input.text().strip()
+
+        self.output_text.clear()
+
+        if not file_path:
+            self.set_output_text("Error: Please enter or select a file path", "red", "🛑")
+            return
+        if not os.path.isfile(file_path):
+            self.set_output_text(f"Error: '{file_path}' is not a valid file", "red", "🛑")
+            return
+        if not expected_checksum:
+            self.set_output_text("Error: Please enter an expected checksum", "red", "🛑")
+            return
+
+        calculated_checksum = self.calculate_checksum(file_path, algorithm)
+        if calculated_checksum.startswith("Error"):
+            self.set_output_text(calculated_checksum, "red", "🛑")
+            return
+
+        if calculated_checksum.lower() == expected_checksum.lower():
+            self.set_output_text(
+                f"Checksum verification successful for {algorithm}", "green", "✔"
+            )
+        else:
+            self.set_output_text(
+                f"Checksum verification failed for {algorithm}\n"
+                f"Calculated: {calculated_checksum}\n"
+                f"Expected:   {expected_checksum}",
+                "red", "🛑"
+            )
+
+    def generate_checksum(self):
+        """Generate and display the checksum for the selected file and algorithm."""
+        file_path = self.file_input.text().strip()
+        algorithm = self.algo_combo.currentText()
+
+        self.output_text.clear()
+
+        if not file_path:
+            self.set_output_text("Error: Please enter or select a file path", "red", "🛑")
+            return
+        if not os.path.isfile(file_path):
+            self.set_output_text(f"Error: '{file_path}' is not a valid file", "red", "🛑")
+            return
+
+        calculated_checksum = self.calculate_checksum(file_path, algorithm)
+        if calculated_checksum.startswith("Error"):
+            self.set_output_text(calculated_checksum, "red", "🛑")
+            return
+
+        self.set_output_text(
+            f"Generated {algorithm} checksum:\n{calculated_checksum}", "green", "✔"
+        )
+
+    def set_output_text(self, text, color, icon):
+        """Set the output text with specified color and icon."""
+        format = QTextCharFormat()
+        format.setForeground(QColor(color))
+        self.output_text.setCurrentCharFormat(format)
+        self.output_text.setText(f"{icon} {text}")
+
+    def reset_form(self):
+        """Clear inputs and output for checking another file."""
+        self.file_input.clear()
+        self.checksum_input.clear()
+        self.output_text.clear()
+        self.algo_combo.setCurrentIndex(0)
+
+def main():
+    app = QApplication(sys.argv)
+    window = ChecksumCheckerWindow()
+    window.show()
+    sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
