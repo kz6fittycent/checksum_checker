@@ -10,11 +10,6 @@ confinement: strict
 license: MIT
 base: core24
 
-platforms:
-  build-on: amd64
-  build-for: all
-  
-
 apps:
   checksumchecker:
     command: checksum_checker
