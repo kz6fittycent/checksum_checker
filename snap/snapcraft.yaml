@@ -31,12 +31,17 @@ apps:
       - network
       - wayland
       - x11
+      - unity7
             
 parts:
   checksumchecker:
     source: https://github.com/kz6fittycent/checksum_checker
     source-type: git
     plugin: python
+    python-packages: 
+      - PyQt6==6.9.1
+    stage-packages:
+      - libxcb-cursor-dev
 
   launcher:
     plugin: dump
