@@ -4,9 +4,17 @@ summary: Verify and generate checksums for files on Linux
 description: |
   A simple GUI application to verify and generate checksums for files on Linux
 grade: stable
-confinement: devmode
+confinement: strict
 license: MIT
 base: core24
+compression: lzo
+
+website: https://github.com/kz6fittycent/checksum_checker
+contact: https://github.com/kz6fittycent/checksum_checker/issues
+issues: https://github.com/kz6fittycent/checksum_checker/issues
+source-code: https://github.com/kz6fittycent/checksum_checker
+icon: snap/gui/checksum_checker.png
+donation: https://www.patreon.com/kz6fittycent
 
 platforms:
   amd64:
@@ -22,7 +30,7 @@ apps:
       LC_ALL: C.UTF-8
       LANG: C.UTF-8
       PYTHONPATH: $SNAP/lib/python3.12/site-packages
-      LD_LIBRARY_PATH: $SNAP/usr/lib:$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+      LD_LIBRARY_PATH: $SNAP/usr/lib:$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/kde-neon-6/lib:$SNAP/kde-neon-6/lib/x86_64-linux-gnu:$SNAP/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     plugs:
       - home
       - removable-media
@@ -32,7 +40,9 @@ apps:
       - wayland
       - x11
       - unity7
-            
+    command-chain:
+      - bin/set-qt-plugin-path.sh
+
 parts:
   checksumchecker:
     source: https://github.com/kz6fittycent/checksum_checker
@@ -40,8 +50,26 @@ parts:
     plugin: python
     python-packages: 
       - PyQt6==6.9.1
+    build-packages:
+      - libxcb-cursor0
     stage-packages:
-      - libxcb-cursor-dev
+      - libxcb-cursor0
+    override-build: |
+      # Ensure libxcb-cursor0 is staged in a standard location
+      mkdir -p $CRAFT_PART_INSTALL/lib/x86_64-linux-gnu
+      cp -r $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libxcb-cursor.so* $CRAFT_PART_INSTALL/lib/x86_64-linux-gnu/ || true
+      craftctl default
+    override-prime: |
+      # Keep only necessary libraries
+      craftctl default
+      # Create a script to set QT_PLUGIN_PATH
+      mkdir -p $CRAFT_PRIME/bin
+      cat > $CRAFT_PRIME/bin/set-qt-plugin-path.sh << 'EOF'
+      #!/bin/sh
+      export QT_PLUGIN_PATH=$SNAP/kde-neon-6/lib/qt6/plugins:$QT_PLUGIN_PATH
+      exec "$@"
+      EOF
+      chmod +x $CRAFT_PRIME/bin/set-qt-plugin-path.sh
 
   launcher:
     plugin: dump
