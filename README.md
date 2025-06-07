@@ -34,6 +34,14 @@ A simple GUI application to verify and generate checksums for files on Linux.
 5. View the result in the output area.
 6. Click "Check Another File" to reset or "Exit" to close.
 
+![image](https://github.com/user-attachments/assets/f9ac9539-7ed6-4edd-8170-a88861646fd4)
+
+![image](https://github.com/user-attachments/assets/c1f01d26-2010-4314-ae83-805bec80916a)
+
+![image](https://github.com/user-attachments/assets/b75a13d1-1bda-4137-8fa3-808f930ba658)
+
+
+
 ## Credits
 
 This was an experiment with Grok3 that went quite well. I created the snap, but
