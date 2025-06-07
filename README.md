@@ -12,19 +12,24 @@ A simple GUI application to verify and generate checksums for files on Linux.
 - Icons for visual feedback (checkmark for success, stop sign for errors).
 - Option to check another file or exit.
 
-## Installation
+## Preferred Installation Method
 
    `sudo snap install checksum_checker`
+
+([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 ## Build and run locally
 1. Clone or download the repository.
 2. Navigate to the project directory.
 3. Run `pip install -r requirements.txt` to install PyQt6.
-4. Launch the application with `python3 checksum_checker_gui.py`.
+4. Launch the application with `python3 checksum_checker`.
+5. Set the script as executable with: `chmod +x checksum_checker`
+6. Move it to a location to be reused often (e.g. `/usr/local/bin`)
 
 ## Requirements
 - Python 3.x
 - Install dependencies with: `pip install -r requirements.txt`
+- If using the snap, just ensure you have `snapd` [installed](https://snapcraft.io/docs/core/install). 
 
 ## Usage
 1. Select or enter a file path using the "Browse" button.
@@ -44,8 +49,8 @@ A simple GUI application to verify and generate checksums for files on Linux.
 
 ## Credits
 
-This was an experiment with Grok3 that went quite well. I created the snap, but
+This was an experiment with [Grok3](https://grok.com/) that went quite well. I created the snap, but
 Grok3 created the application itself based on my prompts. 
 
 ## License
-[MIT License]
+[MIT License](https://github.com/kz6fittycent/checksum_checker/blob/main/LICENSE)
