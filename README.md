@@ -12,7 +12,36 @@ A simple GUI application to verify and generate checksums for files on Linux.
 - Icons for visual feedback (checkmark for success, stop sign for errors).
 - Option to check another file or exit.
 
-## Preferred Installation Method
+## Preferred Installation Methods
+
+### Checksum Checker is also distributed as a `.deb` package for Ubuntu-based distributions. Follow these steps to install:
+
+1. **Download the Package**  
+   Download the latest `.deb` file from the [releases page](https://github.com/kz6fittycent/checksum_checker/releases).
+
+2. **Install the Package**  
+   Install the `.deb` file using the following commands:
+   ```bash
+   sudo dpkg -i checksumchecker_1.0-1_all.deb
+   sudo apt-get install -f
+   ```
+   - The `apt-get install -f` command resolves any missing dependencies.
+
+3. **Dependencies**  
+   - On Ubuntu 24.04, `python3-pyqt6 (>= 6.9.1)` is available in the default repositories and should install automatically.
+   - On Ubuntu 22.04, you may need to install `python3-pyqt6` manually:
+     - Using `pip`: `sudo pip3 install PyQt6==6.9.1`
+     - Or add the Qt6 backports PPA: `sudo add-apt-repository ppa:beineri/opt-qt-6.9.1-jammy && sudo apt-get update && sudo apt-get install python3-pyqt6`
+
+4. **Launch the Application**  
+   - From the terminal: `checksum_checker`
+   - Or find "Checksum Checker" in your application menu.
+
+For issues or feedback, please visit [https://github.com/kz6fittycent/checksum_checker/issues](https://github.com/kz6fittycent/checksum_checker/issues).
+
+### A snap is coming soon!
+
+To install the snap:
 
    `sudo snap install checksum_checker`
 
