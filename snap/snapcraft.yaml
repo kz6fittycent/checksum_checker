@@ -40,8 +40,6 @@ apps:
       - wayland
       - x11
       - unity7
-    command-chain:
-      - bin/set-qt-plugin-path.sh
 
 parts:
   checksumchecker:
@@ -52,24 +50,10 @@ parts:
       - PyQt6==6.9.1
     build-packages:
       - libxcb-cursor0
+      - libxcb-xinerama0
     stage-packages:
       - libxcb-cursor0
-    override-build: |
-      # Ensure libxcb-cursor0 is staged in a standard location
-      mkdir -p $CRAFT_PART_INSTALL/lib/x86_64-linux-gnu
-      cp -r $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libxcb-cursor.so* $CRAFT_PART_INSTALL/lib/x86_64-linux-gnu/ || true
-      craftctl default
-    override-prime: |
-      # Keep only necessary libraries
-      craftctl default
-      # Create a script to set QT_PLUGIN_PATH
-      mkdir -p $CRAFT_PRIME/bin
-      cat > $CRAFT_PRIME/bin/set-qt-plugin-path.sh << 'EOF'
-      #!/bin/sh
-      export QT_PLUGIN_PATH=$SNAP/kde-neon-6/lib/qt6/plugins:$QT_PLUGIN_PATH
-      exec "$@"
-      EOF
-      chmod +x $CRAFT_PRIME/bin/set-qt-plugin-path.sh
+      - libxcb-xinerama0
 
   launcher:
     plugin: dump
