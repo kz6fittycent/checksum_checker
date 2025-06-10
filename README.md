@@ -73,6 +73,7 @@ To install the snap:
 
 ![image](https://github.com/user-attachments/assets/b75a13d1-1bda-4137-8fa3-808f930ba658)
 
+![image](https://github.com/user-attachments/assets/1cdf0e19-cfb4-4515-9ac7-8cb21eadc2a1)
 
 
 ## Credits
