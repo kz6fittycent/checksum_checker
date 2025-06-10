@@ -29,9 +29,8 @@ A simple GUI application to verify and generate checksums for files on Linux.
 
 3. **Dependencies**  
    - On Ubuntu 24.04, `python3-pyqt6 (>= 6.9.1)` is available in the default repositories and should install automatically.
-   - On Ubuntu 22.04, you may need to install `python3-pyqt6` manually:
-     - Using `pip`: `sudo pip3 install PyQt6==6.9.1`
-     - Or add the Qt6 backports PPA: `sudo add-apt-repository ppa:beineri/opt-qt-6.9.1-jammy && sudo apt-get update && sudo apt-get install python3-pyqt6`
+   - On Ubuntu 22.04: `pip3 install PyQt6==6.9.1`
+
 
 4. **Launch the Application**  
    - From the terminal: `checksum_checker`
@@ -78,8 +77,7 @@ To install the snap:
 
 ## Credits
 
-This was an experiment with [Grok3](https://grok.com/) that went quite well. I created the snap, but
-Grok3 created the application itself based on my prompts. 
+This was an experiment with [Grok3](https://grok.com/) that went quite well. I am still working on the snap, but Grok3 created the application itself based on my prompts. Grok also helped with the `.deb`.
 
 ## License
 [MIT License](https://github.com/kz6fittycent/checksum_checker/blob/main/LICENSE)
