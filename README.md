@@ -83,7 +83,7 @@ For issues or feedback, please visit [https://github.com/kz6fittycent/checksum_c
 
 ## Credits
 
-This was an experiment with [Grok3](https://grok.com/) that went quite well. I am still working on the snap, but Grok3 created the application itself based on my prompts. Grok also helped with the `.deb`.
+This was an experiment with [Grok3](https://grok.com/) that went quite well. Grok also helped with the `.deb`.
 
 ## License
 [MIT License](https://github.com/kz6fittycent/checksum_checker/blob/main/LICENSE)
