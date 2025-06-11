@@ -32,6 +32,7 @@ apps:
       PYTHONPATH: $SNAP/lib/python3.12/site-packages
       LD_LIBRARY_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6:$SNAP/kf6/usr/lib/x86_64-linux-gnu:/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:$SNAP/usr/lib:$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
       QT_PLUGIN_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/plugins/platforms
+      QT_STYLE_OVERRIDE: Fusion:dark
     plugs:
       - home
       - removable-media

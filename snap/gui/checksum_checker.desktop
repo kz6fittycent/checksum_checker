@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Checksum Checker
+Name=checksumchecker
 GenericName=Checksum Checker
 Comment=A checksum checker and creator for Linux Desktops
 Exec=checksumchecker
