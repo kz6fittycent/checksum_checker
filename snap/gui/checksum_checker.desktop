@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Checksum_Checker
+Name=Checksum Checker
 GenericName=Checksum Checker
 Comment=A checksum checker and creator for Linux Desktops
 Exec=checksumchecker
@@ -9,4 +9,4 @@ Terminal=false
 Type=Application
 StartupNotify=false
 Categories=Application;
-Keywords=checksum_checker;
+Keywords=checksumchecker;

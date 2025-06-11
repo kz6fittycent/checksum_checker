@@ -1,4 +1,4 @@
-[![🧪 Snap Builds](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml/badge.svg)](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml)
+[![checksumchecker](https://snapcraft.io/checksumchecker/badge.svg)](https://snapcraft.io/checksumchecker) [![🧪 Snap Builds](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml/badge.svg)](https://github.com/kz6fittycent/checksum_checker/actions/workflows/test-snap-can-build.yml)
 
 # Checksum Checker
 
@@ -18,11 +18,11 @@ A simple GUI application to verify and generate checksums for files on Linux.
 
 To install the snap:
 
-    `sudo snap install checksumchecker`
+    sudo snap install checksumchecker
    
 Then connect the interface:
 
-    `sudo snap connect checksumchecker:removable-media`
+    sudo snap connect checksumchecker:removable-media
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
