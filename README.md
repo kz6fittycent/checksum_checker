@@ -14,6 +14,19 @@ A simple GUI application to verify and generate checksums for files on Linux.
 
 ## Preferred Installation Methods
 
+### Snap installation
+
+To install the snap:
+
+    `sudo snap install checksumchecker`
+   
+Then connect the interface:
+
+    `sudo snap connect checksumchecker:removable-media`
+
+([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
+
+
 ### Checksum Checker is also distributed as a `.deb` package for Ubuntu-based distributions. Follow these steps to install:
 
 1. **Download the Package**  
@@ -37,14 +50,6 @@ A simple GUI application to verify and generate checksums for files on Linux.
    - Or find "Checksum Checker" in your application menu.
 
 For issues or feedback, please visit [https://github.com/kz6fittycent/checksum_checker/issues](https://github.com/kz6fittycent/checksum_checker/issues).
-
-### A snap is coming soon!
-
-To install the snap:
-
-   `sudo snap install checksum_checker`
-
-([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 ## Build and run locally
 1. Clone or download the repository.

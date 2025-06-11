@@ -1,5 +1,5 @@
 name: checksumchecker
-version: '1.0'
+adopt-info: checksumchecker
 summary: Verify and generate checksums for files on Linux
 description: |
   A simple GUI application to verify and generate checksums for files on Linux
@@ -30,16 +30,12 @@ apps:
       LC_ALL: C.UTF-8
       LANG: C.UTF-8
       PYTHONPATH: $SNAP/lib/python3.12/site-packages
-      LD_LIBRARY_PATH: $SNAP/usr/lib:$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/kde-neon-6/lib:$SNAP/kde-neon-6/lib/x86_64-linux-gnu:$SNAP/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+      LD_LIBRARY_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6:$SNAP/kf6/usr/lib/x86_64-linux-gnu:/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:$SNAP/usr/lib:$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+      QT_PLUGIN_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/plugins/platforms
     plugs:
       - home
       - removable-media
-      - desktop
-      - desktop-legacy
       - network
-      - wayland
-      - x11
-      - unity7
 
 parts:
   checksumchecker:
@@ -47,13 +43,17 @@ parts:
     source-type: git
     plugin: python
     python-packages: 
-      - PyQt6==6.9.1
+      - PyQt6==6.5.0
     build-packages:
       - libxcb-cursor0
-      - libxcb-xinerama0
+      - qt6-base-dev 
+
     stage-packages:
-      - libxcb-cursor0
-      - libxcb-xinerama0
+      - libxcb-cursor0    
+      
+    override-pull: |
+      craftctl default
+      craftctl set version="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"
 
   launcher:
     plugin: dump
