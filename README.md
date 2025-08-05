@@ -5,7 +5,25 @@
 A simple GUI application to verify and generate checksums for files on Linux.
 
 ## Features
-- Verify file checksums using various algorithms (e.g., md5, sha256).
+- Verify file checksums using various algorithms: 
+  - blake2b
+  - blake2s
+  - md5
+  - md5-sha1
+  - sha1
+  - sha224
+  - sha256
+  - sha384
+  - sha3_224
+  - sha3_256
+  - sha3_384
+  - sha3_512
+  - sha512
+  - sha512_224
+  - sha512_256
+  - shake_128
+  - shake_256
+  - sm3
 - Generate checksums for local files.
 - User-friendly interface with algorithm dropdown and file browser.
 - Color-coded output (green for success, red for failure).
